@@ -7,7 +7,7 @@ func logging() {
 }
 
 func runGetApp() {
-	defer logging()
+	defer logging() // ini buat skip paling akhir program
 	fmt.Println("run Application")
 }
 func main() {

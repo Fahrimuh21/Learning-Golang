@@ -2,14 +2,26 @@ package main
 
 import "fmt"
 
-type hasName interface {
+// Definisi interface
+type HasName interface {
 	GetName() string
 }
 
-func sayHello(hasName hasName) {
-	fmt.Println("Hello", hasName.GetName())
+// Struct
+type Customer struct {
+	Name string
+}
+
+// Implementasi method
+func (c Customer) GetName() string {
+	return c.Name
+}
+
+func sayHello(h HasName) {
+	fmt.Println("Hello", h.GetName())
 }
 
 func main() {
-	sayHello("Fahri")
+	rully := Customer{Name: "Rully"}
+	sayHello(rully) // Hello Rully
 }

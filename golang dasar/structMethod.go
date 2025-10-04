@@ -14,3 +14,4 @@ func main() {
 	rully := Customer{Name: "Rully"}
 	rully.sayHello()
 }
+// Output: Hello, My Name is Rully

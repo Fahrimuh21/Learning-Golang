@@ -25,4 +25,11 @@ func main() {
 	alamat2.Country = "Indonesia"
 	fmt.Println(alamat1)
 	fmt.Println(alamat2)
+
+	//tidak deklarasi awal versi ke 2
+	var alamatt1 *address = &address{}
+	var alamatt2 *address = alamatt1
+	alamatt2.Country = "Indonesia"
+	fmt.Println(alamatt1)
+	fmt.Println(alamatt2)
 }

@@ -26,7 +26,10 @@ func TestHttp(t *testing.T) {
 
 	response := recorder.Result()
 	//result digunakan untuk mendapatkan http.Response dari recorder setelah handler dipanggil. Dengan http.Response ini, kita bisa membaca status code, header, dan body dari response yang dihasilkan oleh handler.
-	body, _ := io.ReadAll(response.Body)
+	body, err := io.ReadAll(response.Body)
+	if err != nil {
+		t.Fatal(err)
+	}
 	//io.ReadAll digunakan untuk membaca body dari http.Response. Body dari http.Response adalah io.ReadCloser, sehingga kita perlu menggunakan io.ReadAll untuk membaca seluruh isi body dan mengembalikannya sebagai byte slice ([]byte).
 	bodyString := string(body)
 

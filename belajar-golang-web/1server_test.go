@@ -6,7 +6,7 @@ import (
 )
 
 func TestServer(t *testing.T) {
-	server := http.Server{
+	server := http.Server{ //ini adalah struct yang digunakan untuk mengkonfigurasi dan menjalankan server HTTP. Struct ini memiliki beberapa field yang dapat diatur, seperti Addr, Handler, TLSConfig, dan lain-lain.
 		Addr: "localhost:8080",
 		//rekomendasi 4 digit untuk port, karena 2 digit pertama bisa digunakan untuk development, dan 2 digit terakhir bisa digunakan untuk production
 	}

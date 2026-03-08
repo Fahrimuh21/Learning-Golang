@@ -12,7 +12,7 @@ func SetCookie(writer http.ResponseWriter, request *http.Request) {
 	cookie := new(http.Cookie)
 	cookie.Name = "X-PZN-Name"
 	cookie.Value = request.URL.Query().Get("name")
-	cookie.Path = "/"
+	cookie.Path = "/" //otomatis akan aktif di semua path
 
 	http.SetCookie(writer, cookie)
 	fmt.Fprint(writer, "Success create cookie")
@@ -34,7 +34,7 @@ func TestCookie(t *testing.T) {
 	mux.HandleFunc("/get-cookie", GetCookie)
 
 	server := http.Server{
-		Addr: "localhost:8080",
+		Addr:    "localhost:8080",
 		Handler: mux,
 	}
 
@@ -51,6 +51,8 @@ func TestSetCookie(t *testing.T) {
 	SetCookie(recorder, request)
 
 	cookies := recorder.Result().Cookies()
+	//recorder.Result().Cookies() digunakan untuk mendapatkan semua
+	//cookie yang dikirimkan oleh server dalam response.
 
 	for _, cookie := range cookies {
 		fmt.Printf("Cookie %s:%s \n", cookie.Name, cookie.Value)
@@ -63,6 +65,8 @@ func TestGetCookie(t *testing.T) {
 	cookie.Name = "X-PZN-Name"
 	cookie.Value = "Eko"
 	request.AddCookie(cookie)
+	//request.AddCookie digunakan untuk menambahkan
+	//cookie ke request yang akan dikirimkan ke server.
 
 	recorder := httptest.NewRecorder()
 

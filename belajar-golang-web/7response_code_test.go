@@ -12,6 +12,7 @@ func ResponseCode(writer http.ResponseWriter, request *http.Request) {
 	name := request.URL.Query().Get("name")
 
 	if name == "" {
+		//writer.WriteHeader(400) // bisa juga menggunakan angka langsung
 		writer.WriteHeader(http.StatusBadRequest)
 		fmt.Fprint(writer, "name is empty")
 	} else {
@@ -46,4 +47,3 @@ func TestResponseCodeValid(t *testing.T) {
 	fmt.Println(response.Status)
 	fmt.Println(string(body))
 }
-

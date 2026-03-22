@@ -9,6 +9,7 @@ import (
 	"testing"
 )
 
+// memasukan data struct ke template dengan if else di file if.gohtml
 func TemplateActionIf(writer http.ResponseWriter, request *http.Request) {
 	t := template.Must(template.ParseFiles("./templates/if.gohtml"))
 	t.ExecuteTemplate(writer, "if.gohtml", Page{
@@ -27,6 +28,7 @@ func TestTemplateActionIf(t *testing.T) {
 	fmt.Println(string(body))
 }
 
+// memasukan data struct ke template dengan operator di file comparator.gohtml
 func TemplateActionOperator(writer http.ResponseWriter, request *http.Request) {
 	t := template.Must(template.ParseFiles("./templates/comparator.gohtml"))
 	t.ExecuteTemplate(writer, "comparator.gohtml", map[string]interface{}{
@@ -45,6 +47,7 @@ func TestTemplateActionOperator(t *testing.T) {
 	fmt.Println(string(body))
 }
 
+// memasukan data struct/map/array/slice ke template dengan range di file range.gohtml
 func TemplateActionRange(writer http.ResponseWriter, request *http.Request) {
 	t := template.Must(template.ParseFiles("./templates/range.gohtml"))
 	t.ExecuteTemplate(writer, "range.gohtml", map[string]interface{}{
@@ -52,7 +55,7 @@ func TemplateActionRange(writer http.ResponseWriter, request *http.Request) {
 		"Hobbies": []string{
 			"Game", "Read", "Code",
 		},
-	})
+	}) //ini berarti nanti dikirim ke file htmlnya dengan nama Hobbies, dan isinya adalah array string yang berisi Game, Read, Code
 }
 
 func TestTemplateActionRange(t *testing.T) {
@@ -65,14 +68,16 @@ func TestTemplateActionRange(t *testing.T) {
 	fmt.Println(string(body))
 }
 
+// memasukan data struct/map/array/slice ke template dengan with di file address.gohtml
+// memperingkas penulisan template, dengan asumsi data yang dikirim pasti ada, jadi tidak perlu menulis nama data yang dikirim lagi
 func TemplateActionWith(writer http.ResponseWriter, request *http.Request) {
 	t := template.Must(template.ParseFiles("./templates/address.gohtml"))
 	t.ExecuteTemplate(writer, "address.gohtml", map[string]interface{}{
 		"Title": "Template Action With",
-		"Name" : "Eko",
-		"Address" : map[string]interface{}{
-			"Street" : "Jalan Belum Ada",
-			"City" : "Jakarta",
+		"Name":  "Eko",
+		"Address": map[string]interface{}{
+			"Street": "Jalan Belum Ada",
+			"City":   "Jakarta",
 		},
 	})
 }

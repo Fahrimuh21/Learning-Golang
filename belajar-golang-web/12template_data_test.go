@@ -9,6 +9,7 @@ import (
 	"testing"
 )
 
+// memasukan data map ke template
 func TemplateDataMap(writer http.ResponseWriter, request *http.Request) {
 	t := template.Must(template.ParseFiles("./templates/name.gohtml"))
 	t.ExecuteTemplate(writer, "name.gohtml", map[string]interface{}{
@@ -40,6 +41,7 @@ type Page struct {
 	Address Address
 }
 
+// memasukan data struct ke template
 func TemplateDataStruct(writer http.ResponseWriter, request *http.Request) {
 	t := template.Must(template.ParseFiles("./templates/name.gohtml"))
 	t.ExecuteTemplate(writer, "name.gohtml", Page{

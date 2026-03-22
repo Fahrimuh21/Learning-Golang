@@ -20,9 +20,11 @@ func (myPage MyPage) SayHello(name string) string {
 
 func TemplateFunction(writer http.ResponseWriter, request *http.Request) {
 	t := template.Must(template.New("FUNCTION").Parse(`{{.SayHello "Budi"}}`))
+	//untuk memanggil method yang ada di struct, kita bisa menggunakan dot (.) lalu nama methodnya, lalu kita bisa mengirim parameter ke method tersebut dengan menggunakan tanda kurung dan isi parameter yang ingin kita kirim, seperti "Budi" pada contoh di atas.
 	t.ExecuteTemplate(writer, "FUNCTION", MyPage{
 		Name: "Eko",
 	})
+	//jadi pada contoh di atas, kita membuat template dengan nama "FUNCTION" yang berisi pemanggilan method SayHello dengan parameter "Budi", lalu kita kirim data ke template tersebut dengan menggunakan struct MyPage yang memiliki field Name dengan nilai "Eko". Sehingga ketika template dieksekusi, maka akan menghasilkan output "Hello Budi, My Name Is Eko".
 }
 
 func TestTemplateFunction(t *testing.T) {
@@ -37,6 +39,7 @@ func TestTemplateFunction(t *testing.T) {
 
 func TemplateFunctionGlobal(writer http.ResponseWriter, request *http.Request) {
 	t := template.Must(template.New("FUNCTION").Parse(`{{len .Name}}`))
+	//untuk membuat function global, kita bisa menggunakan method Funcs pada template, lalu kita bisa mengirimkan map[string]interface{} yang berisi nama function dan implementasi function tersebut, seperti contoh di bawah ini.
 	t.ExecuteTemplate(writer, "FUNCTION", MyPage{
 		Name: "Eko",
 	})
@@ -59,7 +62,9 @@ func TemplateFunctionCreateGlobal(writer http.ResponseWriter, request *http.Requ
 			return strings.ToUpper(value)
 		},
 	})
+	//register function global dengan nama "upper" yang akan mengubah string menjadi huruf kapital, lalu kita bisa menggunakan function tersebut di dalam template dengan cara memanggil nama function tersebut, seperti contoh di bawah ini.
 	t = template.Must(t.Parse(`{{ upper .Name }}`))
+	//jadi pada contoh di atas, kita membuat function global dengan nama "upper" yang akan mengubah string menjadi huruf kapital, lalu kita parse template yang berisi pemanggilan function "upper" dengan parameter .Name, lalu kita kirim data ke template tersebut dengan menggunakan struct MyPage yang memiliki field Name dengan nilai "Eko Kurniawan Khannedy". Sehingga ketika template dieksekusi, maka akan menghasilkan output "EKO KURNIAWAN KHANNEDY".
 
 	t.ExecuteTemplate(writer, "FUNCTION", MyPage{
 		Name: "Eko Kurniawan Khannedy",
@@ -87,6 +92,7 @@ func TemplateFunctionCreateGlobalPipeline(writer http.ResponseWriter, request *h
 		},
 	})
 	t = template.Must(t.Parse(`{{ sayHello .Name | upper }}`))
+	//hasil sayhello akan diubah menjadi huruf kapital dengan menggunakan pipeline, sehingga output yang dihasilkan adalah "HELLO EKO KURNIAWAN KHANNEDY".
 
 	t.ExecuteTemplate(writer, "FUNCTION", MyPage{
 		Name: "Eko Kurniawan Khannedy",

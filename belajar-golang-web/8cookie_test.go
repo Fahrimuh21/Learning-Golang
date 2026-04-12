@@ -19,6 +19,7 @@ func SetCookie(writer http.ResponseWriter, request *http.Request) {
 }
 
 func GetCookie(writer http.ResponseWriter, request *http.Request) {
+	//request.Cookie digunakan untuk mengambil cookie dari request yang dikirimkan oleh client.
 	cookie, err := request.Cookie("X-PZN-Name")
 	if err != nil {
 		fmt.Fprint(writer, "No Cookie")
@@ -30,6 +31,8 @@ func GetCookie(writer http.ResponseWriter, request *http.Request) {
 
 func TestCookie(t *testing.T) {
 	mux := http.NewServeMux()
+
+	// Daftarkan endpoint untuk set cookie dan get cookie
 	mux.HandleFunc("/set-cookie", SetCookie)
 	mux.HandleFunc("/get-cookie", GetCookie)
 

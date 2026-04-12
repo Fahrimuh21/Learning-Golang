@@ -9,6 +9,7 @@ import (
 )
 
 func ResponseCode(writer http.ResponseWriter, request *http.Request) {
+	// ResponseCode adalah handler HTTP yang memeriksa query parameter "name" dalam URL.
 	name := request.URL.Query().Get("name")
 
 	if name == "" {
@@ -21,7 +22,9 @@ func ResponseCode(writer http.ResponseWriter, request *http.Request) {
 }
 
 func TestResponseCodeInvalid(t *testing.T) {
+	// Simulasi GET request tanpa query parameter "name"
 	request := httptest.NewRequest("GET", "http://localhost:8080", nil)
+
 	recorder := httptest.NewRecorder()
 
 	ResponseCode(recorder, request)

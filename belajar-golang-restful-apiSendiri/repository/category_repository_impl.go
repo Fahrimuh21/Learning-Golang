@@ -11,7 +11,7 @@ import (
 type CategoryRepositoryImpl struct {
 }
 
-func NewCategoryRepository() Category {
+func NewCategoryRepository() *CategoryRepositoryImpl {
 	return &CategoryRepositoryImpl{}
 }
 
@@ -45,8 +45,7 @@ func (repository *CategoryRepositoryImpl) FindByID(ctx context.Context, tx *sql.
 
 	category := domain.Category{}
 	if rows.Next() {
-		err := rows.Scan(&category.Id, &category.Name)
-		helper.PanicIfError(err)
+		rows.Scan(&categoryId, &category.Name)
 		return category, nil
 	} else {
 		return category, errors.New("Category is not found")
